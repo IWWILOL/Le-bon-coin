@@ -1,5 +1,4 @@
 <?php
-session_start();
 $_SESSION['user_id'] = 1;
 require 'connexion.php';
 if (isset($_POST['publier'])) {
@@ -12,7 +11,7 @@ if (isset($_POST['publier'])) {
  ['tmp_name'] → PHP met d'abord la photo dans un dossier temporaire automatiquement. move_uploaded_file la déplace depuis ce dossier temporaire vers mon dossier uploads/
  Donc après ça, la photo est dans uploads/echarpe.jpg et dans la BDD j'ai juste le nom echarpe.jpg" */
     $image = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . 'uploads/' . $image);
+    move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
     $stmt = $pdo->prepare("INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([$titre, $prix, $etat, $description, $image, $_SESSION['user_id']]);
