@@ -1,9 +1,54 @@
-
-body {
-  background-color: aliceblue;
-  background-image: url("uploads/Html/Deco.png");
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;}
+body{
+ 
+  margin: 0;
+  padding: 0;
+  background-color: #E2B3CE;
+  background-image: url("uploads/html/Deco.png");
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: contain;
-  background-position: left center;
+  background-size: 80% auto;
+  background-position: left top;}
+.backgroundcadre {
+  background-image: url("uploads/html/cadre.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 50%; /* adjust this % to match your image ratio */}
+main{
+  height: 2000px}
+.cadre{
+  width: 100% ;
+  height: auto;
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;}
+header {
+  position: relative;
+  top: 0;
+  right : 0;
+  z-index: 0;
+  display: flex;
+  justify-content: flex-end;}
+nav{
+  position: absolute;
+  top: 20;
+  right: 20;
+
+  display: flex;
+  gap: 50px; /* space between links */
+  justify-content: flex-end;
+  padding: 15px 20px;
+
 }
+
+navbarsize{
+margin: auto;
+}
+footer{
+
+background-color: aqua;
+z-index: 15;}
