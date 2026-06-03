@@ -1,0 +1,9 @@
+
+body {
+  background-color: aliceblue;
+  background-image: url("uploads/Html/Deco.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+  background-position: left center;
+}
