@@ -1,4 +1,5 @@
 <?php
+session_start();
 $_SESSION['user_id'] = 1;
 require 'connexion.php';
 if (isset($_POST['publier'])) {
@@ -6,10 +7,6 @@ if (isset($_POST['publier'])) {
     $prix = $_POST['prix'];
     $etat = $_POST['etat'];
     $description = $_POST['description'];
- /*"Quand l'utilisatrice choisit une photo et clique sur Publier, PHP récupère la photo avec $_FILES qui contient deux infos importantes :
- ['name'] → le nom du fichier, par exemple echarpe.jpg — on le sauvegarde dans la variable $image pour l'enregistrer dans la BDD
- ['tmp_name'] → PHP met d'abord la photo dans un dossier temporaire automatiquement. move_uploaded_file la déplace depuis ce dossier temporaire vers mon dossier uploads/
- Donc après ça, la photo est dans uploads/echarpe.jpg et dans la BDD j'ai juste le nom echarpe.jpg" */
     $image = $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
