@@ -9,4 +9,5 @@ $stmt->execute([$id, $_SESSION['user_id']]);
 
 header('Location: mes-annonces.php');
 exit;
+test
 ?>
