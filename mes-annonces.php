@@ -23,6 +23,8 @@
         <p> <?=$annonce['description'] ?> </p>
         <img src="uploads/<?= $annonce['image'] ?>" width="200"> 
         <hr>
+        <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>">Modifier</a>
+        <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>">Supprimer</a>
     <?php endforeach; ?>    
 </div>
 </body>
