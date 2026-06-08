@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-$_SESSION['username'] = 'zahwa';
-$_SESSION['user_age'] = 18.5;
+$_SESSION['username'] = '';
 
 $currentName = $_SESSION['username'];
-$currentAge = $_SESSION['user_age'];
+
 
 $connection = mysqli_connect('localhost', 'root', '', 'invader_bar');
 
