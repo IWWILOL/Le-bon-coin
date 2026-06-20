@@ -74,7 +74,7 @@ mysqli_close($conn);
                     </li>
                 </ul>
  
-                <a href="config/includes/uploads/register.php" class="btn btn-info">Register</a>
+                <a href="register.php" class="btn btn-info">Register</a>
             </div>
         </div>
     </nav>
