@@ -1,5 +1,11 @@
 <?php
 
+$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
+
+if (!$conn) {
+    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
+}
+
 session_start();
 $_SESSION['user_id'] = 1;
 require 'connexion.php';
