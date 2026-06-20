@@ -22,7 +22,38 @@ if (isset($_POST['publier'])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style-annonces.css">
 </head>
+<style>
+body {
+    background-image: url('https://i.pinimg.com/736x/37/7d/b6/377db6cea8ba77dc96fa49a4c9e08a15.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+h2 {
+    color: #993556;
+}
+.container {
+    background-color: pink;
+    border-radius: 16px;
+    padding: 30px;
+}
+label {
+    color: #993556;
+    font-weight: bold;
+}
+.form-control {
+    border: 1px solid #D4537E;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #993556;
+    outline: none;
+    box-shadow: none;
+}
+
+</style>
 <body>
     <div class="container mt-4" style="max-width: 600px;">
          <h2>Publier une annonce</h2>
@@ -52,7 +83,7 @@ if (isset($_POST['publier'])) {
     <label for="image">Image</label>
     <input type="file" name="image" accept="image/*" class="form-control" accept="image/*">
 </div>
-<button type="submit" name="publier" class="btn btn-primary"> publier </button>
+<button type="submit" name="publier"  class="btn btn-outline-light"> publier </button>
 </form>
 </div>
 </body>
