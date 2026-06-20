@@ -44,7 +44,7 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
           
         </header>
         
-        <nav>
+        <nav class="nav">
           <form action="index.php" method="POST">
             <input type="text" id="Rechercher" name="Rechercher" placeholder="Rechercher" required>
             <br>

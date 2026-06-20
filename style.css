@@ -116,6 +116,12 @@ position: absolute;
   text-decoration: none ;
 }
 
+.nav{
+  text-align: center;
+  border-top: 50%;
+  border-bottom: 50%;
+}
+
 .l{
     background-image: url('https://i.pinimg.com/736x/2d/d4/36/2dd436ebe320dcaedb5db0823beb77c1.jpg');
     background-size: cover;
