@@ -1,17 +1,20 @@
 <?php
-//informations de connexion 
-$host= "localhost";
-$user= "root";
-$pass= "";
-$dbname="leboncoin";
+mysqli_report(MYSQLI_REPORT_OFF);
 
-$conn = mysqli_connect($host, $user, $pass, $dbname,3306);
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "cloud_diva";
+
+$conn = @mysqli_connect($host, $user, $pass, $dbname, 3306);
 
 if (!$conn) {
     $conn = @mysqli_connect($host, $user, $pass, $dbname, 3308);
 }
-if ($conn) {
+
+if (!$conn) {
     die("Erreur de connexion :" . mysqli_connect_error());
 }
+
 mysqli_set_charset($conn, "utf8");
 ?>
