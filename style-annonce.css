@@ -1,0 +1,10 @@
+body{
+    background-image: url('https://i.pinimg.com/736x/2d/d4/36/2dd436ebe320dcaedb5db0823beb77c1.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+.container {
+    background-color: white;
+    border-radius: 16px;
+    padding: 30px;
+}

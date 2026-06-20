@@ -90,8 +90,36 @@ mysqli_close($connection);
     </ul>
     </div>
     <?php endif; ?>
-    
-
+    <form method="post" action="">
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom / Pseudo</label>
+            <input type="text" class="form-control" id="nom" name="nom" required
+                   value="<?= htmlspecialchars($nomInput) ?>">
+    </div>
+ 
+        <div class="mb-3">
+            <label for="mail" class="form-label">Adresse mail</label>
+            <input type="email" class="form-control" id="mail" name="mail" required
+                   value="<?= htmlspecialchars($emailInput) ?>">
+    </div>
+    <div class="mb-3">
+        <label for="password" classor="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password" required minlength="8">
+        </div>
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">Confirmer le mot de passe</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required minlength="8">
+        </div>
+ 
+        <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+    </form>
+ 
+    <p class="text-center mt-3">
+        Déjà un compte ? <a href="../../../connexion.php">Se connecter</a>
+    </p>
+</div>
+</body>
+</html
 
 
 
