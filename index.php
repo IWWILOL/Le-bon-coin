@@ -4,6 +4,13 @@ require 'recherche.php';
 
 $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
 
+$page = $_GET['page'] ?? 1;
+$parPage = 9;
+$offset = ($page - 1) * $parPage;
+
+$sql = "SELECT * FROM annonces ORDER BY id DESC LIMIT $parPage OFFSET $offset";
+$result = mysqli_query($conn, $sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -64,17 +71,49 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
           </form>  
         </nav>
 
-        <main>
-        <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <div class="annonce-card">
-            <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
-            <h3><?= $row['titre'] ?></h3>
-            <p><?= $row['prix'] ?> €</p>
-            <p><?= $row['etat'] ?></p>
+        <main class="page-container">
+          <aside class="filtres">
+              <form action="index.php" method="GET">
+                  <input type="text" id="recherche" name="recherche" placeholder="Rechercher" value="<?= htmlspecialchars($recherche) ?>">
+                  <br><br>
+
+                  <label>État :</label><br>
+                  <label for="neuf">Neuf</label>
+                  <input type="radio" id="neuf" name="etat" value="neuf" <?= $etat === 'neuf' ? 'checked' : '' ?>>
+                  <br>
+                  <label for="bonetat">Bon état</label>
+                  <input type="radio" id="bonetat" name="etat" value="bon etat" <?= $etat === 'bon etat' ? 'checked' : '' ?>>
+                  <br>
+                  <label for="correct">Correct</label>
+                  <input type="radio" id="correct" name="etat" value="correct" <?= $etat === 'correct' ? 'checked' : '' ?>>
+                  <br><br>
+
+                  <label for="prix">Prix max :</label>
+                  <input type="text" id="prix" name="prix" placeholder="prix" value="<?= htmlspecialchars($prixMax) ?>">
+                  <br><br>
+
+                  <button type="submit">Rechercher</button>
+              </form>
+          </aside>
+
+          <div class="grille-annonces">
+              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                  <div class="annonce-card">
+                      <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
+                      <h3><?= $row['titre'] ?></h3>
+                      <p><?= $row['prix'] ?> €</p>
+                      <p><?= $row['etat'] ?></p>
+                  </div>
+              <?php endwhile; ?>
           </div>
-        <?php endwhile; ?>
-        </div>
+
+          <div class="pagination">
+              <?php if ($page > 1): ?>
+                  <a href="?page=<?= $page - 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">← Précédent</a>
+              <?php endif; ?>
+
+              <a href="?page=<?= $page + 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">Suivant →</a>
+          </div>
         </main>
         
         <footer>
