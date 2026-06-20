@@ -3,12 +3,7 @@ session_start();
 
 $_SESSION['username'] = $_SESSION['username'] ?? '';
 $currentName = $_SESSION['username'];
-
-$connection = mysqli_connect('localhost', 'root', '', 'cloud_diva');
-if (!$connection) {
-    die("Erreur de connexion à la base de données.");
-}
-
+require '../db.php';
 $errorMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
