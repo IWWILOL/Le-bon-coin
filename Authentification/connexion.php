@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 $_SESSION['username'] = $_SESSION['username'] ?? '';
 $currentName = $_SESSION ['username'] ?? '';
