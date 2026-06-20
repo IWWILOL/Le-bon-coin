@@ -1,31 +1,21 @@
 <?php
-mysqli_report(MYSQLI_REPORT_OFF);
-
-$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
-
-if (!$conn) {
-    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
+session_start();
+require'../db.php';
+$error = "";
+//verifier si l’utilisateur a envoyé le code
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+//recupérer ce que l’utilisateur a tapé
+$nom     = trim($_POST['nom'] ?? '');
+$email   = trim($_POST['email'] ?? '');
+$mdp     = $_POST['password'] ?? '';
+$confirm = $_POST['confirm'] ?? '';
+//verifier les données
+if (!$nom || !$email || !$mdp) {
+    $error = "Tous les champs sont obligatoires.";
+} elseif ($mdp !== $confirm) {
+    $error = "Les mots de passe ne correspondent pas.";
 }
-
-if (!$conn) {
-    die("connection failed: " . mysqli_connect_error());
 }
-
-echo "connected to the database succesfully !";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST["nom"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $sql = "INSERT INTO users (nom, email, password) VALUES ('$nom','$email','$password')";
-
-    if(mysqli_query($conn,$sql)){
-        echo "New user added!";
-    } else {
-        echo "Error: " .mysqli_error($conn);
-    }
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
     <br>
-    <h3>Si vous avez un Compte :</h3><a href="configi/register.php"> se Connecter</a>
+    <h3>Si vous avez un Compte :</h3><a href="navconnexion.php"> se Connecter</a>
     
     
 </body>
