@@ -24,34 +24,36 @@ if (isset($_POST['publier'])) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>Publier une annonce</h2>
-<form action="" method="POST" enctype="multipart/form-data">
-<div class="mb-3">
-<label for="titre">titre</label>
-<input placeholder="titre.." type="text" name="titre" class="form-control">
-</div>
-<div class="mb-3">
-<label for="prix">prix</label>
-<input placeholder="prix.." type="number" name="prix" class="form-control" min="0" step="0.01">
-</div>
-<div class="mb-3">
+    <div class="container mt-4" style="max-width: 600px;">
+         <h2>Publier une annonce</h2>
+         <form action="" method="POST" enctype="multipart/form-data">
+     <div class="mb-3">
+         <label for="titre">titre</label>
+         <input placeholder="titre.." type="text" name="titre" class="form-control">
+     </div>
+     <div class="mb-3">
+         <label for="prix">prix</label>
+         <input placeholder="prix.." type="number" name="prix" class="form-control" min="0" step="0.01">
+     </div>
+    <div class="mb-3">
     <label for="etat">etat</label>
-    <select name="etat" id="" class="form-control" required>
-      <option value="etat">etat</option>
-      <option value="neuf">neuf</option>
-      <option value="bon etat">bon etat</option>
-      <option value="correct">correct</option>
-   </select>
+     <select name="etat" id="" class="form-control" required>
+         <option value="" disabled selected> Choisir un etat </option>
+         <option value="neuf">neuf</option>
+         <option value="bon etat">bon etat</option>
+         <option value="correct">correct</option>
+      </select>
+     </div>
+   <div class="mb-3">
+      <label for="description">descripion</label>
+     <textarea name="description" id="descripion" class="form-control"></textarea>
 </div>
 <div class="mb-3">
-    <label for="description">descripion</label>
-    <textarea name="description" id="descripion" class="form-control"></textarea>
-</div>
-<div class="mb-3">
-    <label for="image">image</label>
-    <input type="file" name="image" accept="image/*">
+    <label for="image">Image</label>
+    <input type="file" name="image" accept="image/*" class="form-control" accept="image/*">
 </div>
 <button type="submit" name="publier" class="btn btn-primary"> publier </button>
 </form>
+</div>
 </body>
 </html>

@@ -33,34 +33,43 @@ if (isset($_POST['modifier'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Modifier une annonce</title>
 </head>
 <body>
-<h2>Modifier l'annonce</h2>
-<form action="" method="POST" enctype="multipart/form-data">
-    <label>Titre</label>
-    <input type="text" name="titre" value="<?= $annonce['titre'] ?>">
-    <br>
-    <label>Prix</label>
-    <input type="number" name="prix" value="<?= $annonce['prix'] ?>">
-    <br>
-    <label>État</label>
-    <select name="etat">
-        <option value="neuf" <?= $annonce['etat'] == 'neuf' ? 'selected' : '' ?>>Neuf</option>
-        <option value="bon etat" <?= $annonce['etat'] == 'bon etat' ? 'selected' : '' ?>>Bon état</option>
-        <option value="correct" <?= $annonce['etat'] == 'correct' ? 'selected' : '' ?>>Correct</option>
-    </select>
-    <br>
-    <label>Description</label>
-    <textarea name="description"><?= $annonce['description'] ?></textarea>
-    <br>
-    <label>Image actuelle</label><br>
-    <img src="uploads/<?= $annonce['image'] ?>" width="150"><br>
-    <label>Changer l'image</label>
-    <input type="file" name="image" accept="image/*">
-    <br>
-    <button type="submit" name="modifier">Modifier</button>
-    <a href="mes-annonces.php">Annuler</a>
-</form>
+    <div class="container mt-4" style="max-width: 600px;">
+   <h2>Modifier l'annonce</h2>
+       <form action="" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label>Titre</label>
+            <input type="text" name="titre" class="form-control" value="<?= $annonce['titre'] ?>">
+        </div>
+        <div class="mb-3">
+            <label>Prix</label>
+            <input type="number" name="prix" class="form-control" value="<?= $annonce['prix'] ?>">
+        </div>
+        <div class="mb-3">
+            <label>État</label>
+            <select name="etat" class="form-control">
+                <option value="neuf" <?= $annonce['etat'] == 'neuf' ? 'selected' : '' ?>>Neuf</option>
+                <option value="bon etat" <?= $annonce['etat'] == 'bon etat' ? 'selected' : '' ?>>Bon état</option>
+                <option value="correct" <?= $annonce['etat'] == 'correct' ? 'selected' : '' ?>>Correct</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control"><?= $annonce['description'] ?></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Image actuelle</label><br>
+            <img src="uploads/<?= $annonce['image'] ?>" width="150" class="mb-2"><br>
+            <label>Changer l'image</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
+        </div>
+        <button type="submit" name="modifier" class="btn btn-warning">Modifier</button>
+        <a href="mes-annonces.php" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
 </body>
 </html>

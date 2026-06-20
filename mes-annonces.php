@@ -12,20 +12,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card-img-top {
+        transition: transform 0.3s ease;
+        overflow: hidden;
+    }
+    .card:hover .card-img-top {
+        transform: scale(1.1);
+    }
+</style>
 </head>
 <body>
 <div class="container mt-4">
     <h2>Mes annonces</h2>
-    <?php foreach($annonces as $annonce): ?>
-        <p> <?=$annonce['titre'] ?> </p>
-        <p> <?=$annonce['prix'] ?>$</p>
-        <p> <?=$annonce['etat'] ?> </p>
-        <p> <?=$annonce['description'] ?> </p>
-        <img src="uploads/<?= $annonce['image'] ?>" width="200"> 
-        <hr>
-        <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>">Modifier</a>
-        <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>">Supprimer</a>
-    <?php endforeach; ?>    
+    <div class="row">
+<?php foreach($annonces as $annonce): ?>
+    <div class="col-md-4 mb-4">
+         <div class="card h-100" onclick="window.location='annonce.php?id=<?= $annonce['id'] ?>'" style="cursor:pointer;">
+            <img src="uploads/<?= $annonce['image'] ?>" class="card-img-top" style="height:200px; object-fit:cover;">
+            <div class="card-body">
+                <h5 class="card-title"><?= $annonce['titre'] ?></h5>
+                <p class="card-text"><?= $annonce['description'] ?></p>
+                <p><strong><?= $annonce['prix'] ?> €</strong> — <?= $annonce['etat'] ?></p>
+             </div>
+              <div class="card-footer d-flex justify-content-between" onclick="event.stopPropagation()">
+                <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette annonce ?')">Supprimer</a>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 </div>
 </body>
 </html>
