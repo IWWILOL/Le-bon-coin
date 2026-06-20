@@ -31,8 +31,8 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
             <div class="item">
                 <nav>
                   <a href="navrecherche.html">Favoris</a>
-                  <a href="navrecherche.html">Mes Recherches</a>
-                  <a href="../config/register.php">Connexion</a>
+                  <a href="navrecherche.html">Mes Favoris</a>
+                  <a href="Authentification/connexion.php">Connexion</a>
                 </nav>
                
                 
