@@ -1,3 +1,21 @@
+<?php
+mysqli_report(MYSQLI_REPORT_OFF);
+
+$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
+
+if (!$conn) {
+    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
+}
+
+if (!$conn) {
+    die("connection failed: " . mysqli_connect_error());
+}
+
+echo "connected to the database succesfully !";
+$result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -24,7 +42,7 @@
                 <nav>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Recherches</a>
-                  <a href="navconnexion.html">Connexion</a>
+                  <a href="navconnexion.php">Connexion</a>
                 </nav>
                
                 
@@ -36,10 +54,6 @@
           
         </header>
         
-          
-          
-        
-      
         <nav>
           <br>
           
@@ -47,8 +61,16 @@
           testTEST
         </nav>
         <main>
-        br
-      
+        <div class="grille-annonces">
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+            <div class="annonce-card">
+            <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
+            <h3><?= $row['titre'] ?></h3>
+            <p><?= $row['prix'] ?> €</p>
+            <p><?= $row['etat'] ?></p>
+          </div>
+        <?php endwhile; ?>
+        </div>
         </main>
         
         <footer>
