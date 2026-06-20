@@ -1,9 +1,7 @@
 <?php
 session_start();
-$connection= mysqli_connect('localhost', 'root', '', 'cloud_diva');
-if(!$connection) {
-    die ("Erreur de connexion à la base de données.")
-  }
+ 
+require '../db.php';
    $errors = [];
 $nomInput = '';$emailInput = '';
 //verifier si l’utilisateur a envoyé le code
