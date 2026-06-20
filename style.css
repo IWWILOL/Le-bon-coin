@@ -117,9 +117,12 @@ position: absolute;
 }
 
 .nav{
-  text-align: center;
+  text-align: left;
   border-top: 50%;
   border-bottom: 50%;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 .l{
@@ -129,11 +132,7 @@ position: absolute;
 }
 
 
-.page-container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
+
 
 .filtres {
     width: 250px;

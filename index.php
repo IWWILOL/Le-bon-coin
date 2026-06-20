@@ -90,27 +90,7 @@ $result = mysqli_query($conn, $sql);
         </nav>
 
         <main class="page-container">
-          <aside class="filtres">
-              <form action="index.php" method="GET">
-                  <input type="text" id="recherche" name="recherche" placeholder="Rechercher" value="<?= htmlspecialchars($recherche) ?>">
-                  <br><br>
-
-                  <label>État :</label><br>
-                  <label for="neuf">Neuf</label>
-                  <input type="radio" id="neuf" name="etat" value="neuf" <?= $etat === 'neuf' ? 'checked' : '' ?>>
-                  <br>
-                  <label for="bonetat">Bon état</label>
-                  <input type="radio" id="bonetat" name="etat" value="bon etat" <?= $etat === 'bon etat' ? 'checked' : '' ?>>
-                  <br>
-                  <label for="correct">Correct</label>
-                  <input type="radio" id="correct" name="etat" value="correct" <?= $etat === 'correct' ? 'checked' : '' ?>>
-                  <br><br>
-
-                  <label for="prix">Prix max :</label>
-                  <input type="text" id="prix" name="prix" placeholder="prix" value="<?= htmlspecialchars($prixMax) ?>">
-                  <br><br>
-
-                  <button type="submit">Rechercher</button>
+        
               </form>
           </aside>
 
