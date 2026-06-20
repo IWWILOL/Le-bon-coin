@@ -37,6 +37,32 @@ if (isset($_POST['modifier'])) {
     <link rel="stylesheet" href="style-annonces.css">
     <title>Modifier une annonce</title>
 </head>
+<style>
+    body {
+    background-image: url('https://i.pinimg.com/736x/37/7d/b6/377db6cea8ba77dc96fa49a4c9e08a15.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+.container {
+    background-color: pink;
+    border-radius: 16px;
+    padding: 30px;
+}
+label {
+    color: #993556;
+    font-weight: bold;
+}
+.form-control {
+    border: 1px solid #D4537E;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #993556;
+    outline: none;
+    box-shadow: none;
+}
+</style>
 <body>
     <div class="container mt-4" style="max-width: 600px;">
    <h2>Modifier l'annonce</h2>

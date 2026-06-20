@@ -14,6 +14,13 @@ $annonce = $stmt->fetch();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    body {
+    background-image: url('https://i.pinimg.com/736x/37/7d/b6/377db6cea8ba77dc96fa49a4c9e08a15.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+</style>
 <body>
 <div class="container mt-4">
     <a href="mes-annonces.php" class="btn btn-secondary mb-3">← Retour</a>
