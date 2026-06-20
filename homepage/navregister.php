@@ -1,3 +1,23 @@
+<?php
+$conn = mysqli_connect("localhost","root","","cloud_diva");
+if(!$conn){
+    die("connection failed: " .mysqli_connect_error());
+}
+echo "connected to the database succesfully !";
+
+$nom = $_POST["nom"];
+$email = $_POST["email"];
+$password = $_POST["password"];
+$sql = "INSERT INTO users (nom, email, password) VALUES ('$nom','$email','$password')";
+
+if(mysqli_query($conn,$sql)){
+    echo "New user added!";
+
+}else{
+    echo "Error: " .mysqli_error($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +29,8 @@
     <H1>Création de votre compte Cloud Divas</H1>
 
     <div>
-        <form action="navconnexion.html">
+        
+        <form action="navregister.php" method= "post">
                 <div>
                     <label for="prenom"> Prénom :</label>
                     <input type="text" id="prenom" name="prenom" placeholder="prenom" required>
@@ -41,12 +62,12 @@
             <br>
                 <div>
                     <label for="mail"> E-mail :</label>
-                    <input type="mail" id="mail" name="mail" placeholder="e-mail" required>
+                    <input type="mail" id="mail" name="email" placeholder="e-mail" required>
                 </div>
             <br>
                 <div>
                     <label for="password">  mot de passe :</label>
-                    <input type="password" id="password" namee="password" placeholder="password" required>
+                    <input type="password" id="password" name="password" placeholder="password" required>
                 </div>
             <br>
                 <div>
@@ -55,7 +76,7 @@
                 </div>
         
                 
-        
+            <button type="submit">S'inscrire</button>
         </form>
     </div>
     <br>
