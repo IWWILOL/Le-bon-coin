@@ -1,11 +1,8 @@
 <?php
 require 'db.php';
 require 'recherche.php';
+
 $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
-
-
-
-
 
 ?>
 
@@ -58,7 +55,11 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
             <label for="correct"> correct :</label>
             <input type="radio" id="correct" name="etat" placeholder="correct">
             <br>
+            <label for="Prix"> Prix :</label>
+            <input type="text" id="prix"  name="prix" placeholder="prix">
+            <br>
             <button type="submit"> Rechercher </button>
+
 
           </form>  
         </nav>
