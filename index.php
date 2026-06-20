@@ -4,11 +4,29 @@ require 'recherche.php';
 
 $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
 
-$page = $_GET['page'] ?? 1;
+// --- Récupération des filtres ---
+$recherche = $_GET['recherche'] ?? '';
+$etat = $_GET['etat'] ?? '';
+$prixMax = $_GET['prix'] ?? '';
+$page = max(1, (int)($_GET['page'] ?? 1));
 $parPage = 9;
 $offset = ($page - 1) * $parPage;
 
-$sql = "SELECT * FROM annonces ORDER BY id DESC LIMIT $parPage OFFSET $offset";
+// --- Construction de la requête ---
+$sql = "SELECT * FROM annonces WHERE 1=1";
+
+if ($recherche !== '') {
+    $sql .= " AND titre LIKE '%$recherche%'";
+}
+if ($etat !== '') {
+    $sql .= " AND etat = '$etat'";
+}
+if ($prixMax !== '') {
+    $sql .= " AND prix <= '$prixMax'";
+}
+
+$sql .= " ORDER BY id DESC LIMIT $parPage OFFSET $offset";
+
 $result = mysqli_query($conn, $sql);
 
 ?>
@@ -72,32 +90,9 @@ $result = mysqli_query($conn, $sql);
         </nav>
 
         <main class="page-container">
-          <aside class="filtres">
-              <form action="index.php" method="GET">
-                  <input type="text" id="recherche" name="recherche" placeholder="Rechercher" value="<?= htmlspecialchars($recherche) ?>">
-                  <br><br>
-
-                  <label>État :</label><br>
-                  <label for="neuf">Neuf</label>
-                  <input type="radio" id="neuf" name="etat" value="neuf" <?= $etat === 'neuf' ? 'checked' : '' ?>>
-                  <br>
-                  <label for="bonetat">Bon état</label>
-                  <input type="radio" id="bonetat" name="etat" value="bon etat" <?= $etat === 'bon etat' ? 'checked' : '' ?>>
-                  <br>
-                  <label for="correct">Correct</label>
-                  <input type="radio" id="correct" name="etat" value="correct" <?= $etat === 'correct' ? 'checked' : '' ?>>
-                  <br><br>
-
-                  <label for="prix">Prix max :</label>
-                  <input type="text" id="prix" name="prix" placeholder="prix" value="<?= htmlspecialchars($prixMax) ?>">
-                  <br><br>
-
-                  <button type="submit">Rechercher</button>
-              </form>
-          </aside>
 
           <div class="grille-annonces">
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while (mysqli_fetch_assoc($result)): ?>
                   <div class="annonce-card">
                       <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
                       <h3><?= $row['titre'] ?></h3>
