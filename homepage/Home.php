@@ -42,7 +42,7 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
                 <nav>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Recherches</a>
-                  <a href="navconnexion.php">Connexion</a>
+                  <a href="../config/register.php">Connexion</a>
                 </nav>
                
                 
