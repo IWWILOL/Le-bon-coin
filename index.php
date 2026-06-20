@@ -48,9 +48,19 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
         </header>
         
         <nav>
-          <form action="navconnexion.html" method="POST">
+          <form action="index.php" method="POST">
             <input type="text" id="Rechercher" name="Rechercher" placeholder="Rechercher" required>
-          </form>   
+            <br>
+            <label for="neuf"> neuf :</label>
+            <input type="radio" id="neuf" name="etat" placeholder="neuf">
+            <label for="bonetat"> bon etat :</label>
+            <input type="radio" id="bonetat" name="etat" placeholder="bonetat">
+            <label for="correct"> correct :</label>
+            <input type="radio" id="correct" name="etat" placeholder="correct">
+            <br>
+            <button type="submit"> Rechercher </button>
+
+          </form>  
         </nav>
 
         <main>
