@@ -1,4 +1,18 @@
 <?php
+mysqli_report(MYSQLI_REPORT_OFF);
+
+$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
+
+if (!$conn) {
+    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
+}
+
+if (!$conn) {
+    die("connection failed: " . mysqli_connect_error());
+}
+
+echo "connected to the database succesfully !";
+
 session_start();
 $_SESSION['user_id'] = 1;
 require 'connexion.php';

@@ -1,21 +1,31 @@
 <?php
-$conn = mysqli_connect("localhost","root","","cloud_diva");
-if(!$conn){
-    die("connection failed: " .mysqli_connect_error());
+mysqli_report(MYSQLI_REPORT_OFF);
+
+$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
+
+if (!$conn) {
+    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
 }
+
+if (!$conn) {
+    die("connection failed: " . mysqli_connect_error());
+}
+
 echo "connected to the database succesfully !";
 
-$nom = $_POST["nom"];
-$email = $_POST["email"];
-$password = $_POST["password"];
-$sql = "INSERT INTO users (nom, email, password) VALUES ('$nom','$email','$password')";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = $_POST["nom"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $sql = "INSERT INTO users (nom, email, password) VALUES ('$nom','$email','$password')";
 
-if(mysqli_query($conn,$sql)){
-    echo "New user added!";
+    if(mysqli_query($conn,$sql)){
+        echo "New user added!";
+    } else {
+        echo "Error: " .mysqli_error($conn);
+    }
+    }
 
-}else{
-    echo "Error: " .mysqli_error($conn);
-}
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +90,7 @@ if(mysqli_query($conn,$sql)){
         </form>
     </div>
     <br>
-    <h3>Si vous avez un Compte :</h3><a href="navconnexion.html"> se Connecter</a>
+    <h3>Si vous avez un Compte :</h3><a href="navconnexion.php"> se Connecter</a>
     
     
 </body>

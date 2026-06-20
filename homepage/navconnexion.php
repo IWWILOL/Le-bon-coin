@@ -1,3 +1,20 @@
+<?php
+mysqli_report(MYSQLI_REPORT_OFF);
+
+$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
+
+if (!$conn) {
+    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
+}
+
+if (!$conn) {
+    die("connection failed: " . mysqli_connect_error());
+}
+
+echo "connected to the database succesfully !";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +43,6 @@
                 <input type="submit">
             </div>
     </form>
-    <h3>Si vous avez pas un Compte : </h3><a href="navregister.html"><h3>Crée un Compte</h3></a>
+    <h3>Si vous avez pas un Compte : </h3><a href="navregister.php"><h3>Crée un Compte</h3></a>
 </body>
 </html>
