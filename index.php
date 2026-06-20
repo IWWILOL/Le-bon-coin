@@ -90,12 +90,9 @@ $result = mysqli_query($conn, $sql);
         </nav>
 
         <main class="page-container">
-        
-              </form>
-          </aside>
 
           <div class="grille-annonces">
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while (mysqli_fetch_assoc($result)): ?>
                   <div class="annonce-card">
                       <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
                       <h3><?= $row['titre'] ?></h3>
