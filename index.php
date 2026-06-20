@@ -1,18 +1,11 @@
 <?php
-mysqli_report(MYSQLI_REPORT_OFF);
-
-$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
-
-if (!$conn) {
-    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
-}
-
-if (!$conn) {
-    die("connection failed: " . mysqli_connect_error());
-}
-
-echo "connected to the database succesfully !";
+require 'db.php';
+require 'recherche.php';
 $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
+
+
+
+
 
 ?>
 
@@ -34,9 +27,9 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
      
         <header>
         
-            <div class="item"><img  src="uploads/html/cadre.png" alt="cadre" draggable="false"></div>
-            <div class="item"><img  src="uploads/html/Logo.png" alt="logo" draggable="false"></div>
-            <div class="item"><img  src="uploads/html/homeplushy.jpg" alt="Plushie" draggable="false"></div>
+            <div class="item"><img  src="images/cadre.png" alt="cadre" draggable="false"></div>
+            <div class="item"><img  src="images/Logo.png" alt="logo" draggable="false"></div>
+            <div class="item"><img  src="images/homeplushy.jpg" alt="Plushie" draggable="false"></div>
             
             <div class="item">
                 <nav>
@@ -55,11 +48,11 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
         </header>
         
         <nav>
-          <br>
-          
-          <H1>TEST</H1>
-          testTEST
+          <form action="navconnexion.html" method="POST">
+            <input type="text" id="Rechercher" name="Rechercher" placeholder="Rechercher" required>
+          </form>   
         </nav>
+
         <main>
         <div class="grille-annonces">
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
