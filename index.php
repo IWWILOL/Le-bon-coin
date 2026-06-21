@@ -29,7 +29,7 @@ require 'recherche.php';
             <div class="item">
                 <nav>
                   <a href="Annonces/mes-annonces.php">voir mes annonces</a>
-                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
+                  <a href="Annonces/creer-annonces.php">Publier une annonce</a>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Favoris</a>
                   <a href="Authentification/connexion.php">Connexion</a>
@@ -43,6 +43,7 @@ require 'recherche.php';
             </div>
           
         </header>
+        
         <div class="layout">
           <nav class="nav">
               <form action="index.php" method="GET">
@@ -65,13 +66,13 @@ require 'recherche.php';
           <main class="main">
 
             <div class="grille-annonces">
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
               <div class="card" style="width: 18rem;">
                   <img src="<?= $row['image'] ?>" class="card-img-top" alt="<?= $row['titre'] ?>">
                   <div class="card-body">
                       <h5 class="card-title"><?= $row['titre'] ?></h5>
                       <p class="card-text"><?= $row['etat'] ?></p>
-                      <a href="#" class="btn btn-primary"><?= $row['prix'] ?> €</a>
+                      <a href="#" class="prix"><?= $row['prix'] ?> €</a>
               </div>
               </div>
             <?php endwhile; ?>
