@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_stmt_execute($insertStmt)) {
             mysqli_stmt_close($insertStmt);
             mysqli_close($conn);
-            header('Location: ../../../connexion.php?inscription=ok');
+            header('Location: connexion.php?inscription=ok');
             exit;
         } else {
             $errors[] = "Une erreur est survenue lors de l'inscription.";
@@ -116,12 +116,8 @@ mysqli_close($conn);
     </form>
 
     <p class="text-center mt-3">
-        Déjà un compte ? <a href="../../../connexion.php">Se connecter</a>
+        Déjà un compte ? <a href="connexion.php">Se connecter</a>
     </p>
 </div>
 </body>
 </html>
-
-
-
-

@@ -2,52 +2,49 @@
 session_start();
 require '../db.php';
 
-// Il faut être connecté pour voir cette page
-if(empty($_SESSION['user_id'])
+// pour voir cette page faut etre connecter 
+if (empty($_SESSION['user_id'])) {
     header('Location: connexion.php');
     exit;
 }
 
 $userId = $_SESSION['user_id'];
-$successMessage= ' ';
+$successMessage = '';
 $errors = [];
 
-// la pour Récupérer les infos actuelles de l'utilisateur
-$query ="SELECT id, nom, email FROM users WHERE id = ?";
-$stmt=mysqli_prepare($conn, $query);
+//  pour Récupérer les infos actuelles de l'utilisateur 
+$query = "SELECT id, nom, email FROM users WHERE id = ?";
+$stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, "i", $userId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $userData = mysqli_fetch_assoc($result);
 mysqli_stmt_close($stmt);
 
-$nomInput=$userData["nom"];
+$nomInput = $userData['nom'];
 $emailInput = $userData['email'];
 
-//  la Si le formulaire est envoyé on va mettre a jour les informations en utilssant POST
-if($_SERVER['REQUEST_METHOD']=== 'POST') {
-
+// quand le formulaire est envoyer on met à jour les informations
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nomInput = trim($_POST['nom'] ?? '');
     $emailInput = trim($_POST['mail'] ?? '');
 
-    if(empty($nomInput) || empty($emailInput)) {
-        $Errors[] = "Le nom et l'email sont obligatoires.";
+    if (empty($nomInput) || empty($emailInput)) {
+        $errors[] = "Le nom et l'email sont obligatoires.";
     }
 
-    if (!filter_var($nomInput, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($emailInput, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Adresse mail invalide.";
     }
-
     if (empty($errors)) {
         $updateQuery = "UPDATE users SET nom = ?, email = ? WHERE id = ?";
         $updateStmt = mysqli_prepare($conn, $updateQuery);
-        mysqli_stmt_bind_param($updateStmt,"ssi",$nomInput, $emailInput,$userid);
+        mysqli_stmt_bind_param($updateStmt, "ssi", $nomInput, $emailInput, $userId);
 
-      if(mysqli_stmt_execute($updateStmt));
-      $_SESSION['username'] =$nomInput;
-      $successMessage="Profil  mis à jour avec succès.";
-
+        if (mysqli_stmt_execute($updateStmt)) {
+            $_SESSION['username'] = $nomInput;
+            $successMessage = "Profil mis à jour avec succès.";
         } else {
             $errors[] = "Une erreur est survenue.";
         }
