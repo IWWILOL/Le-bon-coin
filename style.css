@@ -35,7 +35,11 @@ z-index: 3;}
 .nav {
     width: 250px;
     flex-shrink: 0;
-    background-color: darkblue;
+    
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 16px;
+
 }
 
 .main {
@@ -139,29 +143,34 @@ position: absolute;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.grille-annonces {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    
-}
 
-.annonce-card img {
+.imgcard {
     width: 100%;
     height: 180px;
     object-fit: cover;
     border-radius: 16px;
+    border-bottom-left-radius: 20px;
     margin-bottom: 10px;
 }
 
-.annonce-card h3 {
+.titlecard {
+    font-family: "Cormorant", serif;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 8px 0;
+    color: #333;
+    
+}
+
+.textcard {
+    font-family: "Cormorant", serif;
     font-size: 16px;
     margin: 8px 0;
     color: #333;
+    
 }
 
-.prix {
+.prixcard {
     background-color: #171717;
     font-family: "Cormorant", serif;
     color: white;
@@ -172,13 +181,12 @@ position: absolute;
     display: inline-block;
 }
 
-.filtres {
-    width: 250px;
-    flex-shrink: 0;
-}
 
 .pagination {
     margin-top: 20px;
-    display: flex;
     gap: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: "Cormorant", serif;
+    color: #171717;
 }
