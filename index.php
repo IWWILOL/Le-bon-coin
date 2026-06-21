@@ -62,6 +62,7 @@ require 'recherche.php';
 
           <main class="main">
 
+            <div class="grille-annonces">
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
               <div class="card" style="width: 18rem;">
                   <img src="<?= $row['image'] ?>" class="card-img-top" alt="<?= $row['titre'] ?>">
@@ -72,6 +73,7 @@ require 'recherche.php';
               </div>
               </div>
             <?php endwhile; ?>
+            </div>
 
             <ul class="pagination">
 
@@ -91,6 +93,7 @@ require 'recherche.php';
 
             </ul>
           </main>
+          
         </div>
         <footer>
           test
