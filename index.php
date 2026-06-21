@@ -34,7 +34,7 @@ require 'recherche.php';
                     <a href="Annonces/mes-annonces.php">Mes annonces</a>
                     <a href="Annonces/creer-annonce.php">Créer annonce</a>
                     <a href="favoris/favoris.php">Favoris</a>
-                    <a href="Profil">Profil</a>
+                    <a href="Authentification/Profil.php">Profil</a>
                     <a href="Authentification/logout.php">Déconnexion</a>
                     <?php else: ?>
                     <a href="Authentification/connexion.php">Connexion</a>
@@ -72,36 +72,46 @@ require 'recherche.php';
           </nav>
 
           <main class="main">
-            <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-              <div class="card" style="width: 18rem;">
-                  <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
-                  <div class="card-body">
-                      <h5 class="titlecard"><?= $row['titre'] ?></h5>
-                      <p class="textcard"><?= $row['etat'] ?></p>
-                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
-                  </div>
-              </div>
-            <?php endwhile; ?>
-            </div>
+            <table class="grille-annonces">
+                        <?php 
+            $count = 0;
+            while ($row = mysqli_fetch_assoc($result)): 
+                if ($count % 3 == 0) echo "<tr>";
+            ?>
+                <td>
+                    <div class="card">
+                        <img src="Annonces/uploads/<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
+                        <div class="card-body">
+                            <h5 class="titlecard"><?= $row['titre'] ?></h5>
+                            <p class="textcard"><?= $row['etat'] ?></p>
+                            <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
+                        </div>
+                    </div>
+                </td>
+            <?php 
+                $count++;
+                if ($count % 3 == 0) echo "</tr>";
+            endwhile; 
+            if ($count % 3 != 0) echo "</tr>";
+            ?>
+            </table>
 
-            <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-
-            </ul>
-          </main>
+          <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                  </a>
+              </li>
+          </ul>
+        </main>
 
         </div>
         <footer>
