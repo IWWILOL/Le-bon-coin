@@ -54,6 +54,7 @@ require 'recherche.php';
         
         <div class="layout">
           <nav class="nav">
+              <img src="images/Vectorup.png" class="deco-top-right" alt="">
               <form action="index.php" method="GET">
                 <input type="text" id="recherche" name="recherche" placeholder="Rechercher">
                 <br>
@@ -68,7 +69,8 @@ require 'recherche.php';
                 <input type="text" id="prix" name="prix" placeholder="prix">
                 <br>
                 <button type="submit"> Rechercher </button>
-              </form>  
+              </form> 
+              <img src="images/Vectordown.png" class="deco-bottom-left" alt=""> 
           </nav>
 
           <main class="main">

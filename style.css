@@ -32,7 +32,7 @@ z-index: 3;}
 .layout {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    border: 8px solid white;
+    border: 20px solid white;
   
 }
 
@@ -131,12 +131,29 @@ position: absolute;
 
 .nav {
     background-color: transparent;
-    border: 8px solid white;
-    border-radius: 50px;
+    border: 4px solid white;
+   
     padding: 20px;
+    position: relative;
 }
 
+.deco-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    z-index: 1;
+    pointer-events: none;
+}
 
+.deco-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    z-index: 1;
+    pointer-events: none;
+}
 /* main *//* main *//* main *//* main */
 .cards-wrapper {
     display: flex;
@@ -161,7 +178,7 @@ position: absolute;
 }
 
 .card {
-    background-color: #F9D6E8;
+    background-color: #ffdee1;
     border-radius: 20px;
     padding: 4px;
     text-align: center;
