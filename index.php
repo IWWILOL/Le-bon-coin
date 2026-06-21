@@ -1,34 +1,6 @@
 <?php
 require 'db.php';
 require 'recherche.php';
-
-$result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
-
-// --- Récupération des filtres ---
-$recherche = $_GET['recherche'] ?? '';
-$etat = $_GET['etat'] ?? '';
-$prixMax = $_GET['prix'] ?? '';
-$page = max(1, (int)($_GET['page'] ?? 1));
-$parPage = 9;
-$offset = ($page - 1) * $parPage;
-
-// --- Construction de la requête ---
-$sql = "SELECT * FROM annonces WHERE 1=1";
-
-if ($recherche !== '') {
-    $sql .= " AND titre LIKE '%$recherche%'";
-}
-if ($etat !== '') {
-    $sql .= " AND etat = '$etat'";
-}
-if ($prixMax !== '') {
-    $sql .= " AND prix <= '$prixMax'";
-}
-
-$sql .= " ORDER BY id DESC LIMIT $parPage OFFSET $offset";
-
-$result = mysqli_query($conn, $sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +8,7 @@ $result = mysqli_query($conn, $sql);
 <html lang="fr">
 
   <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
@@ -55,6 +28,8 @@ $result = mysqli_query($conn, $sql);
             
             <div class="item">
                 <nav>
+                  <a href="Annonces/mes-annonces.php">voir mes annonces</a>
+                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Favoris</a>
                   <a href="Authentification/connexion.php">Connexion</a>
@@ -68,49 +43,60 @@ $result = mysqli_query($conn, $sql);
             </div>
           
         </header>
-        
-        <nav class="nav">
-          <form action="index.php" method="POST">
-            <input type="text" id="Rechercher" name="Rechercher" placeholder="Rechercher" required>
-            <br>
-            <label for="neuf"> neuf :</label>
-            <input type="radio" id="neuf" name="etat" placeholder="neuf">
-            <label for="bonetat"> bon etat :</label>
-            <input type="radio" id="bonetat" name="etat" placeholder="bonetat">
-            <label for="correct"> correct :</label>
-            <input type="radio" id="correct" name="etat" placeholder="correct">
-            <br>
-            <label for="Prix"> Prix :</label>
-            <input type="text" id="prix"  name="prix" placeholder="prix">
-            <br>
-            <button type="submit"> Rechercher </button>
+        <div class="layout">
+          <nav class="nav">
+              <form action="index.php" method="GET">
+                <input type="text" id="recherche" name="recherche" placeholder="Rechercher">
+                <br>
+                <label for="neuf"> neuf :</label>
+                <input type="radio" id="neuf" name="etat" value="neuf">
+                <label for="bonetat"> bon etat :</label>
+                <input type="radio" id="bonetat" name="etat" value="bon etat">
+                <label for="correct"> correct :</label>
+                <input type="radio" id="correct" name="etat" value="correct">
+                <br>
+                <label for="Prix"> Prix :</label>
+                <input type="text" id="prix" name="prix" placeholder="prix">
+                <br>
+                <button type="submit"> Rechercher </button>
+              </form>  
+          </nav>
 
+          <main class="main">
 
-          </form>  
-        </nav>
+            <div class="grille-annonces">
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <div class="card" style="width: 18rem;">
+                  <img src="<?= $row['image'] ?>" class="card-img-top" alt="<?= $row['titre'] ?>">
+                  <div class="card-body">
+                      <h5 class="card-title"><?= $row['titre'] ?></h5>
+                      <p class="card-text"><?= $row['etat'] ?></p>
+                      <a href="#" class="btn btn-primary"><?= $row['prix'] ?> €</a>
+              </div>
+              </div>
+            <?php endwhile; ?>
+            </div>
 
-        <main class="page-container">
+            <ul class="pagination">
 
-          <div class="grille-annonces">
-              <?php while (mysqli_fetch_assoc($result)): ?>
-                  <div class="annonce-card">
-                      <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
-                      <h3><?= $row['titre'] ?></h3>
-                      <p><?= $row['prix'] ?> €</p>
-                      <p><?= $row['etat'] ?></p>
-                  </div>
-              <?php endwhile; ?>
-          </div>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
 
-          <div class="pagination">
-              <?php if ($page > 1): ?>
-                  <a href="?page=<?= $page - 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">← Précédent</a>
-              <?php endif; ?>
+            </ul>
+          </main>
 
-              <a href="?page=<?= $page + 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">Suivant →</a>
-          </div>
-        </main>
-        
+        </div>
         <footer>
           test
         </footer> 

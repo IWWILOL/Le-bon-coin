@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['user_id'] = 1;
-require 'connexion.php';
+require '../connexion.php';
 if (isset($_POST['publier'])) {
     $titre = $_POST['titre'];
     $prix = $_POST['prix'];
@@ -10,8 +10,9 @@ if (isset($_POST['publier'])) {
     $image = $_FILES['image']['name'];
     move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
-    $stmt = $pdo->prepare("INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$titre, $prix, $etat, $description, $image, $_SESSION['user_id']]);
+    $stmt = mysqli_prepare($connection, "INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssssdi", $titre, $prix, $etat, $description, $image, $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
     header('Location: mes-annonces.php');
     exit;
 }

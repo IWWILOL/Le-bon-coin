@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connexion.php';
+require '../connexion.php';
 
 $id = $_GET['id'];
 $stmt = $pdo->prepare("SELECT * FROM annonces WHERE id = ?");

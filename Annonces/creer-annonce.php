@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['user_id'] = 1;
-require 'connexion.php';
+require '../connexion.php';
 if (isset($_POST['publier'])) {
     $titre = $_POST['titre'];
     $prix = $_POST['prix'];
@@ -22,7 +22,7 @@ if (isset($_POST['publier'])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style-annonces.css">
+<link rel="stylesheet" href="../style-annonces.css">
 </head>
 <style>
 body {
