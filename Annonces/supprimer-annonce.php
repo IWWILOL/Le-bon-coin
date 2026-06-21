@@ -5,7 +5,7 @@ require '../db.php';
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../Authentification/connexion.php');
     exit;
-}
+}sssssss
  
 $id = (int) ($_GET['id'] ?? 0);
  
