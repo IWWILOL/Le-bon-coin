@@ -21,11 +21,11 @@ $result = mysqli_stmt_get_result($stmt);
 $userData = mysqli_fetch_assoc($result);
 mysqli_stmt_close($stmt);
 
-$nomInput=$userData["nom"]
+$nomInput=$userData["nom"];
 $emailInput = $userData['email'];
 
 //  la Si le formulaire est envoyé on va mettre a jour les informations en utilssant POST
-if($-SERVER['REQUEST_METHOD']=== 'POST') {
+if($_SERVER['REQUEST_METHOD']=== 'POST') {
 
 
     $nomInput = trim($_POST['nom'] ?? '');
