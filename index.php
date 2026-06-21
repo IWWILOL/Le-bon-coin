@@ -65,7 +65,7 @@ require 'recherche.php';
           <main class="main">
 
             <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while ($row = mysqli_fetch_assoc($result)): ?>
               <div class="card" style="width: 18rem;">
                   <img src="<?= $row['image'] ?>" class="card-img-top" alt="<?= $row['titre'] ?>">
                   <div class="card-body">
