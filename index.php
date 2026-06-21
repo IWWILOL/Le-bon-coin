@@ -72,7 +72,7 @@ require 'recherche.php';
                   <div class="card-body">
                       <h5 class="titlecard"><?= $row['titre'] ?></h5>
                       <p class="textcard"><?= $row['etat'] ?></p>
-                      <a href="Annonces/annonce.php" <?=$row['id']?> class="prixcard"><?= $row['prix'] ?> €</a>
+                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
               </div>
               </div>
             <?php endwhile; ?>
