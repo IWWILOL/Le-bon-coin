@@ -64,22 +64,20 @@ require 'recherche.php';
           </nav>
 
           <main class="main">
-
             <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-              <div class="card" style="width: 18rem;">
-                  <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
-                  <div class="card-body">
-                      <h5 class="titlecard"><?= $row['titre'] ?></h5>
-                      <p class="textcard"><?= $row['etat'] ?></p>
-                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
-              </div>
-              </div>
-            <?php endwhile; ?>
+              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <div class="card" style="width: 18rem;">
+                    <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
+                    <div class="card-body">
+                        <h5 class="titlecard"><?= $row['titre'] ?></h5>
+                        <p class="textcard"><?= $row['etat'] ?></p>
+                        <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
+                    </div>
+                </div>
+              <?php endwhile; ?>
             </div>
 
             <ul class="pagination">
-
                   <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
