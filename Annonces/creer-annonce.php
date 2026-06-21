@@ -6,15 +6,17 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 if (isset($_POST['publier'])) {
-    $titre = $_POST['titre'];
-    $prix = $_POST['prix'];
+    $titre = trim($_POST['titre']);
+    $prix = (float) trim($_POST['prix']);
     $etat = $_POST['etat'];
-    $description = $_POST['description'];
-    $image = $_FILES['image']['name'];
-    $upload0k=move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
+    $description = trim($_POST['description']);
+    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+    $image = uniqid('annonce_') . '.' . $extension;
+    $uploadOk = move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
+
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
     
-    if(!$upload0k){
+    if(!$uploadOk){
         die("Erreur lors de l'upload de l'image.");
     }
     $stmt = mysqli_prepare($conn, "INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");

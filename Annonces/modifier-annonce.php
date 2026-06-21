@@ -18,13 +18,14 @@ if (!$annonce) {
 }
 
 if (isset($_POST['modifier'])) {
-    $titre = $_POST['titre'];
-    $prix = $_POST['prix'];
+    $titre = trim($_POST['titre']);
+    $prix = (float) trim($_POST['prix']);
     $etat = $_POST['etat'];
-    $description = $_POST['description'];
+    $description = trim($_POST['description']);
 
     if (!empty($_FILES['image']['name'])) {
-        $image = $_FILES['image']['name'];
+        $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $image = uniqid('annonce_') . '.' . $extension;
         move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
     } else {
         $image = $annonce['image'];
@@ -80,11 +81,11 @@ label {
        <form action="" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label>Titre</label>
-            <input type="text" name="titre" class="form-control" value="<?= $annonce['titre'] ?>">
+            <input type="text" name="titre" class="form-control" value="<?= htmlspecialchars($annonce['titre']) ?>">
         </div>
         <div class="mb-3">
             <label>Prix</label>
-            <input type="number" name="prix" class="form-control" value="<?= $annonce['prix'] ?>">
+            <input type="number" name="prix" class="form-control" value="<?= htmlspecialchars($annonce['prix']) ?>" step="0.01">
         </div>
         <div class="mb-3">
             <label>État</label>
@@ -96,11 +97,11 @@ label {
         </div>
         <div class="mb-3">
             <label>Description</label>
-            <textarea name="description" class="form-control"><?= $annonce['description'] ?></textarea>
+            <textarea name="description" class="form-control"><?= htmlspecialchars($annonce['description']) ?></textarea>
         </div>
         <div class="mb-3">
             <label>Image actuelle</label><br>
-            <img src="uploads/<?= $annonce['image'] ?>" width="150" class="mb-2"><br>
+            <img src="uploads/<?= htmlspecialchars($annonce['image']) ?>" width="150" class="mb-2"><br>
             <label>Changer l'image</label>
             <input type="file" name="image" class="form-control" accept="image/*">
         </div>
