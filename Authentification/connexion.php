@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $userData['id'];
             $_SESSION['role'] = $userData['role'];
 
-            header('Location: index.html');
+            header('Location: ../index.php');
             exit;
         }
     } else {
@@ -74,7 +74,7 @@ mysqli_close($conn);
                     </li>
                 </ul>
 
-                <a href="config/includes/uploads/register.php" class="btn btn-info">Register</a>
+                <a href="register.php" class="btn btn-info">Register</a>
             </div>
         </div>
     </nav>
