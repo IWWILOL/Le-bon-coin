@@ -29,7 +29,7 @@ require 'recherche.php';
             <div class="item">
                 <nav>
                   <a href="Annonces/mes-annonces.php">voir mes annonces</a>
-                  <a href="Annonces/creer-annonces.php">Publier une annonce</a>
+                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Favoris</a>
                   <a href="Authentification/connexion.php">Connexion</a>
@@ -72,7 +72,7 @@ require 'recherche.php';
                   <div class="card-body">
                       <h5 class="titlecard"><?= $row['titre'] ?></h5>
                       <p class="textcard"><?= $row['etat'] ?></p>
-                      <a href="Annonces/annonce.php" <?=$row['id']?> class="prixcard"><?= $row['prix'] ?> €</a>
+                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
               </div>
               </div>
             <?php endwhile; ?>
