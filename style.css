@@ -21,18 +21,26 @@ body{
 
 }
 
-footer{
+.footer{
 background-color: rgb(0, 0, 0);
 width: 100%;
 z-index: 3;}
-nav{
-  background-color: white;
-  z-index: 1;
-}
-main{
-  background-color: white;
-  z-index: 2
 
+.layout {
+    display: flex;
+    gap: 20px;
+  
+}
+
+.nav {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: darkblue;
+}
+
+.main {
+    flex: 1;
+    background-color: blue;
 }
 
 .container {
@@ -116,18 +124,7 @@ position: absolute;
   text-decoration: none ;
 }
 
-.nav{
-  text-align: left;
-  border-top: 50%;
-  border-bottom: 50%;
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
 
-.main{
-  
-}
 .l{
     background-image: url('https://i.pinimg.com/736x/2d/d4/36/2dd436ebe320dcaedb5db0823beb77c1.jpg');
     background-size: cover;
