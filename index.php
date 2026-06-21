@@ -28,6 +28,8 @@ require 'recherche.php';
             
             <div class="item">
                 <nav>
+                  <a href="Annonces/mes-annonces.php">voir mes annonces</a>
+                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
                   <a href="navrecherche.html">Favoris</a>
                   <a href="navrecherche.html">Mes Favoris</a>
                   <a href="Authentification/connexion.php">Connexion</a>
@@ -93,7 +95,7 @@ require 'recherche.php';
 
             </ul>
           </main>
-          
+
         </div>
         <footer>
           test
