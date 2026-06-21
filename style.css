@@ -142,6 +142,7 @@ position: absolute;
 .main {
     flex: 1;
     background-color: rgb(255, 255, 255);
+    align-content: center;
 }
 
 .grille-annonces {

@@ -12,7 +12,7 @@ if (isset($_POST['publier'])) {
     $description = trim($_POST['description']);
     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
     $image = uniqid('annonce_') . '.' . $extension;
-    $uploadOk = move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . 'Annonces/uploads/' . $image);
+    $uploadOk = move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
 
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
     
