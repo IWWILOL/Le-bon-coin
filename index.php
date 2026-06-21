@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'db.php';
 require 'recherche.php';
 ?>
@@ -28,18 +29,25 @@ require 'recherche.php';
             
             <div class="item">
                 <nav>
-                  <a href="Annonces/mes-annonces.php">voir mes annonces</a>
-                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
-                  <a href="navrecherche.html">Favoris</a>
-                  <a href="navrecherche.html">Mes Favoris</a>
-                  <a href="Authentification/connexion.php">Connexion</a>
+                <nav>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="Annonces/mes-annonces.php">Mes annonces</a>
+                    <a href="Annonces/creer-annonce.php">Créer annonce</a>
+                    <a href="favoris/favoris.php">Favoris</a>
+                    <a href="Profil">Profil</a>
+                    <a href="Authentification/logout.php">Déconnexion</a>
+                    <?php else: ?>
+                    <a href="Authentification/connexion.php">Connexion</a>
+                    <a href="Authentification/register.php">Inscription</a>
+                    <?php endif; ?>
+                </nav>
+
+                   
+                   
                 </nav>
                
                 
-                
-                
-              
-
+  
             </div>
           
         </header>
@@ -65,16 +73,16 @@ require 'recherche.php';
 
           <main class="main">
             <div class="grille-annonces">
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <div class="card" style="width: 18rem;">
-                    <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
-                    <div class="card-body">
-                        <h5 class="titlecard"><?= $row['titre'] ?></h5>
-                        <p class="textcard"><?= $row['etat'] ?></p>
-                        <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
-                    </div>
-                </div>
-              <?php endwhile; ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <div class="card" style="width: 18rem;">
+                  <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
+                  <div class="card-body">
+                      <h5 class="titlecard"><?= $row['titre'] ?></h5>
+                      <p class="textcard"><?= $row['etat'] ?></p>
+                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
+                  </div>
+              </div>
+            <?php endwhile; ?>
             </div>
 
             <ul class="pagination">

@@ -32,7 +32,7 @@ if (isset($_POST['modifier'])) {
     }
 
     $stmt = mysqli_prepare($conn, "UPDATE annonces SET titre = ?, prix = ?, etat = ?, description = ?, image = ? WHERE id = ? AND user_id = ?");
-    mysqli_stmt_bind_param($stmt, "sdsssi", $titre, $prix, $etat, $description, $image, $id, $_SESSION['user_id']);
+    mysqli_stmt_bind_param($stmt, "sdsssii", $titre, $prix, $etat, $description, $image, $id, $_SESSION['user_id']);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -91,7 +91,7 @@ label {
             <label>État</label>
             <select name="etat" class="form-control">
                 <option value="neuf" <?= $annonce['etat'] == 'neuf' ? 'selected' : '' ?>>Neuf</option>
-                <option value="bon etat" <?= $annonce['etat'] == 'bon etat' ? 'selected' : '' ?>>Bon état</option>
+                <option value="bon_etat" <?= $annonce['etat'] == 'bon_etat' ? 'selected' : '' ?>>Bon_état</option>
                 <option value="correct" <?= $annonce['etat'] == 'correct' ? 'selected' : '' ?>>Correct</option>
             </select>
         </div>
