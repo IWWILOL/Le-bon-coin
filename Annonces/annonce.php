@@ -34,13 +34,13 @@ mysqli_stmt_close($stmt);
     <a href="mes-annonces.php" class="btn btn-secondary mb-3">← Retour</a>
     <div class="row">
         <div class="col-md-6">
-            <img src="uploads/<?= $annonce['image'] ?>" class="img-fluid rounded">
+            <img src="uploads/<?= htmlspecialchars($annonce['image']) ?>" class="img-fluid rounded">
         </div>
         <div class="col-md-6">
-            <h2><?= $annonce['titre'] ?></h2>
-            <h4 class="text-success"><?= $annonce['prix'] ?> €</h4>
-            <p><strong>État :</strong> <?= $annonce['etat'] ?></p>
-            <p><?= $annonce['description'] ?></p>
+            <h2><?= htmlspecialchars($annonce['titre']) ?></h2>
+            <h4 class="text-success"><?= htmlspecialchars($annonce['prix']) ?> €</h4>
+            <p><strong>État :</strong> <?= htmlspecialchars($annonce['etat']) ?></p>
+            <p><?= nl2br(htmlspecialchars($annonce['description'])) ?></p>
             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $annonce['user_id']): ?>
                 <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-warning">Modifier</a>
                 <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-danger" onclick="return confirm('Supprimer cette annonce ?')">Supprimer</a>
