@@ -99,7 +99,9 @@ require 'recherche.php';
 
         </div>
         <footer>
-          test
+          <div>
+            <a href="Administration/Administration.php"> Pouvoir Administrateur</a>
+          </div>
         </footer> 
       
   </body>
