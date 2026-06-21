@@ -1,19 +1,30 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 1;
-require '../connexion.php';
+require '../db.php';
+if (!isset($_SESSION['user_id'])) {
+   header('Location: ../Authentification/connexion.php');
+    exit;
+}
 if (isset($_POST['publier'])) {
     $titre = $_POST['titre'];
     $prix = $_POST['prix'];
     $etat = $_POST['etat'];
     $description = $_POST['description'];
     $image = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
+    $upload0k=move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/uploads/' . $image);
     // maintenant pour tout enregistrer dans la base de donnée on utilise la requete mysql preparée 
-    $stmt = $pdo->prepare("INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$titre, $prix, $etat, $description, $image, $_SESSION['user_id']]);
+    
+    if(!$upload0k){
+        die("Erreur lors de l'upload de l'image.");
+    }
+    $stmt = mysqli_prepare($conn, "INSERT INTO annonces (titre, prix, etat, description, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "sdsssi", $titre, $prix, $etat, $description, $image, $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+ 
     header('Location: mes-annonces.php');
     exit;
+
 }
 ?>
 <!DOCTYPE html>
@@ -71,7 +82,7 @@ label {
      <select name="etat" id="" class="form-control" required>
          <option value="" disabled selected> Choisir un etat </option>
          <option value="neuf">neuf</option>
-         <option value="bon etat">bon etat</option>
+         <option value="bon_etat">bon_etat</option>
          <option value="correct">correct</option>
       </select>
      </div>

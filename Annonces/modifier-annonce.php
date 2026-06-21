@@ -1,12 +1,21 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 1;
-require '../connexion.php';
+require '../db.php';
+if (!isset($_SESSION['user_id'])) {
+   header('Location: ../Authentification/connexion.php');
+    exit;
+}
+$id = (int) ($_GET['id'] ?? 0);
+$stmt = mysqli_prepare($conn, "SELECT * FROM annonces WHERE id = ? AND user_id = ?");
+mysqli_stmt_bind_param($stmt, "ii", $id, $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$annonce = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
 
-$id = $_GET['id'];
-$stmt = $pdo->prepare("SELECT * FROM annonces WHERE id = ? AND user_id = ?");
-$stmt->execute([$id, $_SESSION['user_id']]);
-$annonce = $stmt->fetch();
+if (!$annonce) {
+    die("Annonce introuvable, ou vous n'en êtes pas le propriétaire.");
+}
 
 if (isset($_POST['modifier'])) {
     $titre = $_POST['titre'];
@@ -21,8 +30,10 @@ if (isset($_POST['modifier'])) {
         $image = $annonce['image'];
     }
 
-    $stmt = $pdo->prepare("UPDATE annonces SET titre = ?, prix = ?, etat = ?, description = ?, image = ? WHERE id = ? AND user_id = ?");
-    $stmt->execute([$titre, $prix, $etat, $description, $image, $id, $_SESSION['user_id']]);
+    $stmt = mysqli_prepare($conn, "UPDATE annonces SET titre = ?, prix = ?, etat = ?, description = ?, image = ? WHERE id = ? AND user_id = ?");
+    mysqli_stmt_bind_param($stmt, "sdsssi", $titre, $prix, $etat, $description, $image, $id, $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
     header('Location: mes-annonces.php');
     exit;

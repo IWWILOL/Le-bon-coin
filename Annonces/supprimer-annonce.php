@@ -1,19 +1,18 @@
 <?php
-
-$conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3306);
-
-if (!$conn) {
-    $conn = @mysqli_connect("localhost", "root", "", "cloud_diva", 3308);
-}
-
 session_start();
-$_SESSION['user_id'] = 1;
-require 'connexion.php';
-
-$id = $_GET['id'];
-$stmt = $pdo->prepare("DELETE FROM annonces WHERE id = ? AND user_id = ?");
-$stmt->execute([$id, $_SESSION['user_id']]);
-
+require '../db.php';
+ 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../Authentification/connexion.php');
+    exit;
+}
+ 
+$id = (int) ($_GET['id'] ?? 0);
+ 
+$stmt = mysqli_prepare($conn, "DELETE FROM annonces WHERE id = ? AND user_id = ?");
+mysqli_stmt_bind_param($stmt, "ii", $id, $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+ 
 header('Location: mes-annonces.php');
 exit;
-?>

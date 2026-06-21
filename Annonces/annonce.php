@@ -1,11 +1,19 @@
 <?php
 session_start();
-require '../connexion.php';
+require '../db.php';
 
-$id = $_GET['id'];
-$stmt = $pdo->prepare("SELECT * FROM annonces WHERE id = ?");
-$stmt->execute([$id]);
-$annonce = $stmt->fetch();
+$id = (int) ($_GET['id'] ?? 0);
+
+$stmt = mysqli_prepare($conn, "SELECT * FROM annonces WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$annonce = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
+
+    if (!$annonce) {
+    die("Annonce introuvable.");
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,8 +41,10 @@ $annonce = $stmt->fetch();
             <h4 class="text-success"><?= $annonce['prix'] ?> €</h4>
             <p><strong>État :</strong> <?= $annonce['etat'] ?></p>
             <p><?= $annonce['description'] ?></p>
-            <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-warning">Modifier</a>
-            <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-danger" onclick="return confirm('Supprimer cette annonce ?')">Supprimer</a>
+            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $annonce['user_id']): ?>
+                <a href="modifier-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-warning">Modifier</a>
+                <a href="supprimer-annonce.php?id=<?= $annonce['id'] ?>" class="btn btn-danger" onclick="return confirm('Supprimer cette annonce ?')">Supprimer</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>

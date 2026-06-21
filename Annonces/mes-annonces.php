@@ -1,11 +1,18 @@
 <?php
  session_start();
- $_SESSION['user_id'] = 1;
- require '../connexion.php';
- $stmt=$pdo->prepare("SELECT * FROM annonces WHERE user_id=?");
- $stmt->execute([$_SESSION['user_id']]);
- $annonces=$stmt->fetchAll();
+ require '../db.php';
+ if (!isset($_SESSION['user_id'])) {
+     header('Location: ../Authentification/connexion.php');
+    exit;
+ }
+ $stmt = mysqli_prepare($conn, "SELECT * FROM annonces WHERE user_id = ?");
+mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$annonces = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
