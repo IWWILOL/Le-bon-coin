@@ -68,7 +68,7 @@ require 'recherche.php';
             <div class="grille-annonces">
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
               <div class="card" style="width: 18rem;">
-                  <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
+                  <img src="Annonces/uploads/<?= htmlspecialchars($row['image']) ?>" class="imgcard" alt="<?= htmlspecialchars($row['titre']) ?>">
                   <div class="card-body">
                       <h5 class="titlecard"><?= $row['titre'] ?></h5>
                       <p class="textcard"><?= $row['etat'] ?></p>
