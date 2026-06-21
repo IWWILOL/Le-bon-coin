@@ -1,11 +1,33 @@
 <?php
 require 'db.php';
 require 'recherche.php';
+
 $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
 
+// --- Récupération des filtres ---
+$recherche = $_GET['recherche'] ?? '';
+$etat = $_GET['etat'] ?? '';
+$prixMax = $_GET['prix'] ?? '';
+$page = max(1, (int)($_GET['page'] ?? 1));
+$parPage = 9;
+$offset = ($page - 1) * $parPage;
 
+// --- Construction de la requête ---
+$sql = "SELECT * FROM annonces WHERE 1=1";
 
+if ($recherche !== '') {
+    $sql .= " AND titre LIKE '%$recherche%'";
+}
+if ($etat !== '') {
+    $sql .= " AND etat = '$etat'";
+}
+if ($prixMax !== '') {
+    $sql .= " AND prix <= '$prixMax'";
+}
 
+$sql .= " ORDER BY id DESC LIMIT $parPage OFFSET $offset";
+
+$result = mysqli_query($conn, $sql);
 
 ?>
 
@@ -34,8 +56,8 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
             <div class="item">
                 <nav>
                   <a href="navrecherche.html">Favoris</a>
-                  <a href="navrecherche.html">Mes Recherches</a>
-                  <a href="../config/register.php">Connexion</a>
+                  <a href="navrecherche.html">Mes Favoris</a>
+                  <a href="Authentification/connexion.php">Connexion</a>
                 </nav>
                
                 
@@ -47,7 +69,7 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
           
         </header>
         
-        <nav>
+        <nav class="nav">
           <form action="index.php" method="POST">
             <input type="text" id="Rechercher" name="Rechercher" placeholder="Rechercher" required>
             <br>
@@ -58,22 +80,35 @@ $result = mysqli_query($conn, "SELECT * FROM annonces ORDER BY id DESC");
             <label for="correct"> correct :</label>
             <input type="radio" id="correct" name="etat" placeholder="correct">
             <br>
+            <label for="Prix"> Prix :</label>
+            <input type="text" id="prix"  name="prix" placeholder="prix">
+            <br>
             <button type="submit"> Rechercher </button>
+
 
           </form>  
         </nav>
 
-        <main>
-        <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <div class="annonce-card">
-            <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
-            <h3><?= $row['titre'] ?></h3>
-            <p><?= $row['prix'] ?> €</p>
-            <p><?= $row['etat'] ?></p>
+        <main class="page-container">
+
+          <div class="grille-annonces">
+              <?php while (mysqli_fetch_assoc($result)): ?>
+                  <div class="annonce-card">
+                      <img src="<?= $row['image'] ?>" alt="<?= $row['titre'] ?>">
+                      <h3><?= $row['titre'] ?></h3>
+                      <p><?= $row['prix'] ?> €</p>
+                      <p><?= $row['etat'] ?></p>
+                  </div>
+              <?php endwhile; ?>
           </div>
-        <?php endwhile; ?>
-        </div>
+
+          <div class="pagination">
+              <?php if ($page > 1): ?>
+                  <a href="?page=<?= $page - 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">← Précédent</a>
+              <?php endif; ?>
+
+              <a href="?page=<?= $page + 1 ?>&recherche=<?= urlencode($recherche) ?>&etat=<?= urlencode($etat) ?>&prix=<?= urlencode($prixMax) ?>">Suivant →</a>
+          </div>
         </main>
         
         <footer>

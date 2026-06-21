@@ -8,12 +8,9 @@ if ($recherche !== '') {
     $sql = "SELECT * FROM annonces ORDER BY id DESC";
 }
 
-$sql = "SELECT * FROM annonces where etat"
+$sql = "SELECT * FROM annonces where etat";
 
 
 $result = mysqli_query($conn, $sql);
-
-
-
 
 ?>

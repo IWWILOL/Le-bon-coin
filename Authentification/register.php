@@ -1,9 +1,8 @@
 <?php
 session_start();
-$connection= mysqli_connect('localhost', 'root', '', 'leboncoin');
-if(!$connection) {
-    die ("Erreur de connexion à la base de données.")
-  }
+ 
+require '../db.php';
+
    $errors = [];
 $nomInput = '';$emailInput = '';
 //verifier si l’utilisateur a envoyé le code
@@ -17,7 +16,7 @@ $confirmInput = trim($_POST['confirm'] ?? '');
 if (empty($nomInput) || empty($emailInput) || empty($passwordInput) || empty($confirmInput)) {
     $error[] = "Tous les champs sont obligatoires.";
 
-} elseif (!filter_var!== $emailInput,FILTER_VALIDATE_EMAIL)) {
+} elseif (!filter_var!== $emailInput,FILTER_VALIDATE_EMAIL) {
     $error[] = "Adresse mail invalide.";
 
 }
@@ -56,8 +55,7 @@ $insertStmt = mysqli_prepare($connection, $insertQuery);
                 $error[] = "Une erreur est survenue lors de l'inscription."
                 }
                 mysqli_stmt_close($insertStmt);
-        }
-}
+        
 mysqli_close($connection);
 ?>
 <!DOCTYPE html>
@@ -75,7 +73,7 @@ mysqli_close($connection);
 <?php if (!empty($errors)): ?>
     <div class ="alert alert-danger">
         <ul class ="mb-0">
-            <?php foreach ($errors)); ?>
+            <?php foreach ($errors); ?>
             <li><?= htmlspecialchqrs ($error)?></li>
         <?php endforeach; ?>  
 </ul>
