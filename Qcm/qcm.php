@@ -16,6 +16,35 @@ $questions=mysqli_fetch_all($result, MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<style>
+body {
+    background-image: url('https://i.pinimg.com/736x/37/7d/b6/377db6cea8ba77dc96fa49a4c9e08a15.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+h2 {
+    color: #993556;
+}
+.container {
+    background-color: pink;
+    border-radius: 16px;
+    padding: 30px;
+}
+label {
+    color: #993556;
+    font-weight: bold;
+}
+.form-control {
+    border: 1px solid #D4537E;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #993556;
+    outline: none;
+    box-shadow: none;
+}
+</style>
 <body>
     <form action="resultat.php" method="post">
         <?php foreach ($questions as $index => $question): ?>
@@ -29,16 +58,17 @@ $questions=mysqli_fetch_all($result, MYSQLI_ASSOC);
                     $question['reponse4']
                 ];
                 ?>
-                <?php foreach ($options as $option): ?>
+                <?php foreach ($options as $i => $option): ?>
                     <label>
-                        <input type="radio" name="reponse[<?php echo $question['id']; ?>]" value="<?php echo htmlspecialchars($option); ?>" required>
+                        <input type="radio" name="reponse[<?php echo $question['id']; ?>]" value="<?php echo $i + 1; ?>" required>
                         <?php echo htmlspecialchars($option); ?>
                     </label><br>
                 <?php endforeach; ?>
             </div>
             <hr>
         <?php endforeach; ?>
-        <button type="submit">Soumettre</button>
+        <button type="submit" class="btn btn-sm mb-3" style="background-color: #993556; color: white;">Soumettre</button>
+        <a href="../index.php" class="btn btn-sm mb-3" style="background-color: #993556; color: white;">Retour à l'accueil</a>
     </form>
 </body>
 </html>
