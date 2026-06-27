@@ -1,8 +1,13 @@
 <?php
 session_start();
+
 require '../db.php';
 if (!isset($_SESSION['user_id'])) {
    header('Location: ../Authentification/connexion.php');
+    exit;
+}
+if (!isset($_SESSION['qcm_reussi'])) {
+    header('Location: ../Qcm/avant-qcm.php');
     exit;
 }
 if (isset($_POST['publier'])) {
@@ -24,7 +29,7 @@ if (isset($_POST['publier'])) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
  
-    header('Location: mes-annonces.php');
+    header('Location: ../index.php');
     exit;
 
 }

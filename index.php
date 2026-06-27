@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'db.php';
 require 'recherche.php';
 ?>
@@ -27,79 +28,105 @@ require 'recherche.php';
             <div class="item"><img  src="images/homeplushy.jpg" alt="Plushie" draggable="false"></div>
             
             <div class="item">
-                <nav>
-                  <a href="Annonces/mes-annonces.php">voir mes annonces</a>
-                  <a href="Annonces/creer-annonce.php">Publier une annonce</a>
-                  <a href="navrecherche.html">Favoris</a>
-                  <a href="navrecherche.html">Mes Favoris</a>
-                  <a href="Authentification/connexion.php">Connexion</a>
-                </nav>
-               
-                
-                
-                
               
-
+                <nav>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="Annonces/mes-annonces.php">Mes annonces</a>
+                    <a href="Annonces/creer-annonce.php">Publier</a>
+                    <a href="message/messagerie.php">chat</a>
+                    <a href="favoris/favoris.php">Favoris</a>
+                    <a href="Authentification/Profil.php">Profil</a>
+                    <a href="Authentification/logout.php">Déconnexion</a>
+                    <?php else: ?>
+                    <a href="Authentification/connexion.php">Connexion</a>
+                    <a href="Authentification/register.php">Inscription</a>
+                    <?php endif; ?>
+                </nav>
             </div>
-          
+          <nav>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                 
+                    <?php else: ?>
+                    <div class="cta-box">
+                      <p class="cta-text">Trouvé le crochet que vous cherchez en vous connectant</p>
+                      <a href="Authentification/connexion.php" class="cta-button">Connexion</a>
+                    </div>
+                    <?php endif; ?>
+                </nav>
         </header>
         
         <div class="layout">
+        
           <nav class="nav">
+              
+              <img src="images/Vectorup.png" class="deco-top-right" alt="">
               <form action="index.php" method="GET">
+                <br><br>
                 <input type="text" id="recherche" name="recherche" placeholder="Rechercher">
+                <br><br>
+                <label for="etat"> <h1>Etat :</h1></label><br>
+                <label for="neuf"> neuf :  </label>
+                <input type="radio" id="neuf" name="etat" value="neuf"><br>
+                <label for="bonetat"> bon etat :  </label>
+                <input type="radio" id="bonetat" name="etat" value="bon etat"><br>
+                <label for="correct"> correct :  </label>
+                <input type="radio" id="correct" name="etat" value="correct"><br>
                 <br>
-                <label for="neuf"> neuf :</label>
-                <input type="radio" id="neuf" name="etat" value="neuf">
-                <label for="bonetat"> bon etat :</label>
-                <input type="radio" id="bonetat" name="etat" value="bon etat">
-                <label for="correct"> correct :</label>
-                <input type="radio" id="correct" name="etat" value="correct">
-                <br>
-                <label for="Prix"> Prix :</label>
+                <label for="Prix"> <h1>Prix :</h1></label>
                 <input type="text" id="prix" name="prix" placeholder="prix">
-                <br>
+                <br><br>
                 <button type="submit"> Rechercher </button>
-              </form>  
+              </form> 
+              <img src="images/Vectordown.png" class="deco-bottom-left" alt=""> 
           </nav>
 
           <main class="main">
+            <table class="grille-annonces">
+                        <?php 
+            $count = 0;
+            while ($row = mysqli_fetch_assoc($result)): 
+                if ($count % 3 == 0) echo "<tr>";
+            ?>
+                <td>
+                    <div class="card">
+                        <img src="Annonces/uploads/<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
+                        <div class="card-body">
+                            <h5 class="titlecard"><?= $row['titre'] ?></h5>
+                            <p class="textcard"><?= $row['etat'] ?></p>
+                            <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
+                        </div>
+                    </div>
+                </td>
+            <?php 
+                $count++;
+                if ($count % 3 == 0) echo "</tr>";
+            endwhile; 
+            if ($count % 3 != 0) echo "</tr>";
+            ?>
+            </table>
 
-            <div class="grille-annonces">
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-              <div class="card" style="width: 18rem;">
-                  <img src="<?= $row['image'] ?>" class="imgcard" alt="<?= $row['titre'] ?>">
-                  <div class="card-body">
-                      <h5 class="titlecard"><?= $row['titre'] ?></h5>
-                      <p class="textcard"><?= $row['etat'] ?></p>
-                      <a href="Annonces/annonce.php?id=<?= $row['id'] ?>" class="prixcard"><?= $row['prix'] ?> €</a>
-              </div>
-              </div>
-            <?php endwhile; ?>
-            </div>
-
-            <ul class="pagination">
-
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-
-            </ul>
-          </main>
+          <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                  </a>
+              </li>
+          </ul>
+        </main>
 
         </div>
         <footer>
-          test
+          <div>
+            <a href="Administration/Administration.php"> Pouvoir Administrateur</a>
+          </div>
         </footer> 
       
   </body>

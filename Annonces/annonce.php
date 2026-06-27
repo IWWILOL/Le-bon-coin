@@ -34,7 +34,7 @@ mysqli_stmt_close($stmt);
     <a href="mes-annonces.php" class="btn btn-secondary mb-3">← Retour</a>
     <div class="row">
         <div class="col-md-6">
-            <img src="uploads/<?= htmlspecialchars($annonce['image']) ?>" class="img-fluid rounded">
+            <img src="uploads/<?= htmlspecialchars($annonce['image']) ?>" class="rounded" style="width: 100%; height: 450px; object-fit: cover;">
         </div>
         <div class="col-md-6">
             <h2><?= htmlspecialchars($annonce['titre']) ?></h2>
