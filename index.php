@@ -28,11 +28,12 @@ require 'recherche.php';
             <div class="item"><img  src="images/homeplushy.jpg" alt="Plushie" draggable="false"></div>
             
             <div class="item">
-                <nav>
+              
                 <nav>
                     <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="Annonces/mes-annonces.php">Mes annonces</a>
-                    <a href="Annonces/creer-annonce.php">Créer annonce</a>
+                    <a href="Annonces/creer-annonce.php">Publier</a>
+                    <a href="message/messagerie.php">chat</a>
                     <a href="favoris/favoris.php">Favoris</a>
                     <a href="Authentification/Profil.php">Profil</a>
                     <a href="Authentification/logout.php">Déconnexion</a>
@@ -41,33 +42,39 @@ require 'recherche.php';
                     <a href="Authentification/register.php">Inscription</a>
                     <?php endif; ?>
                 </nav>
-
-                   
-                   
-                </nav>
-               
-                
-  
             </div>
-          
+          <nav>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                 
+                    <?php else: ?>
+                    <div class="cta-box">
+                      <p class="cta-text">Trouvé le crochet que vous cherchez en vous connectant</p>
+                      <a href="Authentification/connexion.php" class="cta-button">Connexion</a>
+                    </div>
+                    <?php endif; ?>
+                </nav>
         </header>
         
         <div class="layout">
+        
           <nav class="nav">
+              
               <img src="images/Vectorup.png" class="deco-top-right" alt="">
               <form action="index.php" method="GET">
+                <br><br>
                 <input type="text" id="recherche" name="recherche" placeholder="Rechercher">
+                <br><br>
+                <label for="etat"> <h1>Etat :</h1></label><br>
+                <label for="neuf"> neuf :  </label>
+                <input type="radio" id="neuf" name="etat" value="neuf"><br>
+                <label for="bonetat"> bon etat :  </label>
+                <input type="radio" id="bonetat" name="etat" value="bon etat"><br>
+                <label for="correct"> correct :  </label>
+                <input type="radio" id="correct" name="etat" value="correct"><br>
                 <br>
-                <label for="neuf"> neuf :</label>
-                <input type="radio" id="neuf" name="etat" value="neuf">
-                <label for="bonetat"> bon etat :</label>
-                <input type="radio" id="bonetat" name="etat" value="bon etat">
-                <label for="correct"> correct :</label>
-                <input type="radio" id="correct" name="etat" value="correct">
-                <br>
-                <label for="Prix"> Prix :</label>
+                <label for="Prix"> <h1>Prix :</h1></label>
                 <input type="text" id="prix" name="prix" placeholder="prix">
-                <br>
+                <br><br>
                 <button type="submit"> Rechercher </button>
               </form> 
               <img src="images/Vectordown.png" class="deco-bottom-left" alt=""> 
