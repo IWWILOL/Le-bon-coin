@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 require '../db.php';
 
@@ -6,8 +9,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: ../Authentification/connexion.php');
     exit;
 }
-$sql ="SELECT id, question, reponse1, reponse2, reponse3, reponse4,
-reponse4, bonne_reponse FROM questions ORDER BY id DESC ";
+
+$sql = "SELECT id, question, reponse1, reponse2, reponse3, reponse4, bonne_reponse FROM questions ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -18,7 +21,7 @@ $result = mysqli_query($conn, $sql);
     <title>Gestion des questions</title>
 </head>
 <body>
-     <h1>Gestion des questions</h1>
+    <h1>Gestion des questions</h1>
 
     <p><a href="ajouter-question.php">+ Ajouter une question</a></p>
 
