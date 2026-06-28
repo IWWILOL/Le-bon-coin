@@ -6,25 +6,29 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: ../Authentification/connexion.php');
     exit;
 }
+
 $erreur = '';
 $id = $_GET['id'] ?? $_POST['id'] ?? null;
+
 if (!$id) {
-    header( 'location: admin_questions.php');
-    exist;
- } 
- // Si le formulaire est envoyé (POST) donc on met à jour  
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Location: admin_questions.php');
+    exit;
+}
+
+// Si le formulaire est envoyé (POST) on met à jour
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question      = $_POST['question'] ?? '';
     $reponse1      = $_POST['reponse1'] ?? '';
     $reponse2      = $_POST['reponse2'] ?? '';
     $reponse3      = $_POST['reponse3'] ?? '';
     $reponse4      = $_POST['reponse4'] ?? '';
     $bonne_reponse = $_POST['bonne_reponse'] ?? '';
+
     if ($question && $reponse1 && $reponse2 && $reponse3 && $reponse4 && $bonne_reponse) {
         $sql = "UPDATE questions
-        SET question = ?, reponse1 = ?, reponse2 = ?, reponse3 = ?, reponse4 = ?, bonne_reponse = ?
+                SET question = ?, reponse1 = ?, reponse2 = ?, reponse3 = ?, reponse4 = ?, bonne_reponse = ?
                 WHERE id = ?";
-                $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "sssssii", $question, $reponse1, $reponse2, $reponse3, $reponse4, $bonne_reponse, $id);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
@@ -35,7 +39,8 @@ if (!$id) {
         $erreur = "Merci de remplir tous les champs.";
     }
 }
-//on va chercher la question existante pour pré-remplir le formulaire
+
+// On va chercher la question existante pour pré-remplir le formulaire
 $sql = "SELECT * FROM questions WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -43,21 +48,23 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $q = mysqli_fetch_assoc($result);
 mysqli_stmt_close($stmt);
+
 if (!$q) {
-    header ('Location: admin_questions.php');
-    exist;
-    }
+    header('Location: admin_questions.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>modifier une question</title>
+    <title>Modifier une question</title>
 </head>
 <body>
     <h1>Modifier la question</h1>
-      <?php if ($erreur): ?>
+
+    <?php if ($erreur): ?>
         <p style="color:red;"><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
@@ -86,3 +93,4 @@ if (!$q) {
     </form>
 </body>
 </html>
+    
