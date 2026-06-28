@@ -53,5 +53,6 @@ h2 {
     </div>
 <?php endforeach; ?>
 </div>
+<a href="../index.php" class="btn btn-sm mb-3" style="background-color: #993556; color: white;">Retour à l'accueil</a>
 </body>
 </html>
