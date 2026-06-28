@@ -1,68 +1,5 @@
 <?php
 
-// ============ ANTI-TRICHE ============
-
-// 1. PLEIN ÉCRAN OBLIGATOIRE
-function lancerPleinEcran() {
-    const el = document.documentElement;
-    if (el.requestFullscreen) el.requestFullscreen();
-    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
-}
-
-// Détecter si l'utilisateur quitte le plein écran
-document.addEventListener('fullscreenchange', function() {
-    if (!document.fullscreenElement) {
-        alert("⚠️ Vous avez quitté le plein écran. Votre tentative peut être annulée.");
-        // Option : soumettre automatiquement ou invalider
-        // document.getElementById('form-qcm').submit();
-    }
-});
-
-// 2. DÉTECTION CHANGEMENT D'ONGLET
-let avertissements = 0;
-
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        avertissements++;
-        if (avertissements >= 3) {
-            alert("⚠️ Trop de changements d'onglet détectés. Tentative invalidée.");
-            document.getElementById('form-qcm').submit(); // soumet/invalide
-        } else {
-            alert("⚠️ Avertissement " + avertissements + "/3 : changement d'onglet détecté !");
-        }
-    }
-});
-
-// 3. DÉSACTIVER CLIC DROIT
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-// 4. DÉSACTIVER COPIER/COLLER
-document.addEventListener('copy', function(e) { e.preventDefault(); });
-document.addEventListener('paste', function(e) { e.preventDefault(); });
-document.addEventListener('cut', function(e) { e.preventDefault(); });
-
-// 5. DÉSACTIVER SÉLECTION DE TEXTE
-document.addEventListener('selectstart', function(e) { e.preventDefault(); });
-
-// 6. TIMER 10 MINUTES
-let tempsRestant = 10 * 60; // 600 secondes
-
-function updateTimer() {
-    const minutes = Math.floor(tempsRestant / 60);
-    const secondes = tempsRestant % 60;
-    document.getElementById('timer').textContent = 
-        minutes + ':' + (secondes < 10 ? '0' : '') + secondes;
-    
-    if (tempsRestant <= 0) {
-        alert("⏱️ Temps écoulé ! Vos réponses sont soumises automatiquement.");
-        document.getElementById('form-qcm').submit();
-    }
-    tempsRestant--;
-}
-
 
 session_start();
 require '../db.php';
@@ -135,5 +72,60 @@ label {
         <button type="submit" class="btn btn-sm mb-3" style="background-color: #993556; color: white;">Soumettre</button>
         <a href="../index.php" class="btn btn-sm mb-3" style="background-color: #993556; color: white;">Retour à l'accueil</a>
     </form>
+    
+    <script>
+// ============ ANTI-TRICHE ============
+
+function lancerPleinEcran() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+}
+
+document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement) {
+        alert("⚠️ Vous avez quitté le plein écran. Votre tentative peut être annulée.");
+    }
+});
+
+let avertissements = 0;
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        avertissements++;
+        if (avertissements >= 3) {
+            alert("⚠️ Trop de changements d'onglet détectés. Tentative invalidée.");
+            document.getElementById('form-qcm').submit();
+        } else {
+            alert("⚠️ Avertissement " + avertissements + "/3 : changement d'onglet détecté !");
+        }
+    }
+});
+
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.addEventListener('copy', function(e) { e.preventDefault(); });
+document.addEventListener('paste', function(e) { e.preventDefault(); });
+document.addEventListener('cut', function(e) { e.preventDefault(); });
+document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+
+let tempsRestant = 10 * 60;
+function updateTimer() {
+    const minutes = Math.floor(tempsRestant / 60);
+    const secondes = tempsRestant % 60;
+    document.getElementById('timer').textContent =
+        minutes + ':' + (secondes < 10 ? '0' : '') + secondes;
+    if (tempsRestant <= 0) {
+        alert("⏱️ Temps écoulé ! Vos réponses sont soumises automatiquement.");
+        document.getElementById('form-qcm').submit();
+    }
+    tempsRestant--;
+}
+
+window.onload = function() {
+    lancerPleinEcran();
+    setInterval(updateTimer, 1000);
+};
+</script>
+
 </body>
 </html>
